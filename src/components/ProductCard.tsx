@@ -4,6 +4,7 @@ import { Product } from '../types';
 import { cn } from '../lib/utils';
 import { ShoppingCart, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { QuantityControl } from './QuantityControl';
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +13,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, className }: ProductCardProps) {
   const addToCart = useStore((state) => state.addToCart);
+  const isInCart = useStore((state) => state.cart.some(item => item.id === product.id));
 
   return (
     <div className={cn("bg-white rounded-lg shadow-md overflow-hidden", className)}>
@@ -35,13 +37,17 @@ export function ProductCard({ product, className }: ProductCardProps) {
               <Info className="h-4 w-4" />
               <span>جزئیات</span>
             </Link>
-            <button
-              onClick={() => addToCart(product)}
-              className="flex items-center space-x-1 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
-            >
-              <ShoppingCart className="h-4 w-4" />
-              <span>افزودن</span>
-            </button>
+            {isInCart ? (
+              <QuantityControl productId={product.id} />
+            ) : (
+              <button
+                onClick={() => addToCart(product)}
+                className="flex items-center space-x-1 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+              >
+                <ShoppingCart className="h-4 w-4" />
+                <span>افزودن</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

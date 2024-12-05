@@ -3,11 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart } from 'lucide-react';
 import { ALL_PRODUCTS } from '../data/products';
 import { useStore } from '../store/useStore';
+import { QuantityControl } from '../components/QuantityControl';
 
 export function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const addToCart = useStore((state) => state.addToCart);
+  const cart = useStore((state) => state.cart);
   
   const product = ALL_PRODUCTS.find((p) => p.id === id);
   
@@ -27,6 +29,8 @@ export function ProductDetails() {
       </div>
     );
   }
+
+  const isInCart = cart.some(item => item.id === product.id);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -53,13 +57,17 @@ export function ProductDetails() {
             ${product.price.toFixed(2)}
           </p>
 
-          <button
-            onClick={() => addToCart(product)}
-            className="mt-6 w-full bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors inline-flex items-center justify-center"
-          >
-            <ShoppingCart className="h-5 w-5 mr-2" />
-            افزودن به سبد خرید
-          </button>
+          {isInCart ? (
+            <QuantityControl productId={product.id} />
+          ) : (
+            <button
+              onClick={() => addToCart(product)}
+              className="mt-6 w-full bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors inline-flex items-center justify-center"
+            >
+              <ShoppingCart className="h-5 w-5 mr-2" />
+              افزودن به سبد خرید
+            </button>
+          )}
 
           {product.specs && (
             <div className="mt-8">
