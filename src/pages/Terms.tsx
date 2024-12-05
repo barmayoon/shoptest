@@ -17,7 +17,7 @@ export function Terms() {
       
       <h1 className="text-3xl font-bold text-gray-900 mb-4">شرایط استفاده</h1>
       <p className="text-gray-700">
-        <!-- Your terms of service content goes here -->
+        
         این یک متن نمونه برای شرایط استفاده است.
       </p>
     </div>
