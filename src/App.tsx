@@ -6,8 +6,6 @@ import { Cart } from './pages/Cart';
 import { ProductDetails } from './pages/ProductDetails';
 import { Footer } from './components/Footer';
 import { Terms } from './pages/Terms';
-import { Privacy } from './pages/Privacy';
-import { FAQ } from './pages/FAQ';
 
 function App() {
   return (
@@ -21,8 +19,6 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/faq" element={<FAQ />} />
           </Routes>
         </main>
         <Footer />
